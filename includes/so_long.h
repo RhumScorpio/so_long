@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/08/09 22:09:13 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/08/12 00:25:00 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
+#include "../minilibx-linux/mlx_int.h"
+#include "../minilibx-linux/mlx.h"
 
 
 #endif

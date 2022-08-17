@@ -6,7 +6,7 @@
 #    By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 07:38:28 by clesaffr          #+#    #+#              #
-#    Updated: 2022/08/09 22:37:14 by clesaffr         ###   ########.fr        #
+#    Updated: 2022/08/12 00:40:03 by clesaffr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ CFLAGS		=	-Wall -Werror -Wextra
 
 SRCS		=	main.c
 
-INCLUDES	=	-I ./includes
+INCLUDES	=	-I ./includes -I ./minilibx-linux
 
 MLX			=	minilibx-linux
 
-PATH_MLX	=	./$(MLX)
+PATH_MLX	=	./$(MLX)/
 
 PATH_OBJS	=	.objs/
 
@@ -41,10 +41,10 @@ $(PATH_OBJS)	:
 					mkdir -p $(PATH_OBJS)
 
 $(NAME)			:	$(F_OBJS)
-					$(CC) $(F_OBJS) -L$(MLX) -L/usr/lib -I$(MLX) -lXext -lX11 -lm -lz -o $(NAME)
+					$(CC) $(CFLAGS) $(F_OBJS) -L $(MLX) -lmlx -lmlx_Linux -lXext -lX11 -o $(NAME)
 
 $(PATH_OBJS)%.o	:	$(PATH_SRCS)%.c
-						$(CC) $(INCLUDES) -I $(PATH_MLX) $(CFLAGS) -c $< -o $@
+						$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 clean			:
 					rm -rf $(F_OBJS) $(PATH_OBJS)
