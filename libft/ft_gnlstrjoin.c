@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_gnlstrjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2022/08/30 22:26:15 by clesaffr          #+#    #+#             */
+/*   Updated: 2022/09/04 21:04:57 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+char	*ft_gnlstrjoin(char *s1, char *s2)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	char	*ret;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	if (!s1 && !s2)
+		return (NULL);
+	else if (s1 && !s2)
+		ret = ft_strdup(s1);
+	else if (!s1 && s2)
+		ret = ft_strdup(s2);
+	else
+	{
+		ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+		if (!ret)
+			return (NULL);
+		ret = ft_strcpy(ret, s1);
+		ret = ft_strcat(ret, s2);
+	}
+	return (ret);
+}

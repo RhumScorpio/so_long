@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2020/02/21 16:02:38 by clesaffr          #+#    #+#             */
+/*   Updated: 2020/02/25 09:31:18 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	void	*p;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	p = malloc(nmemb * size);
+	if (p == 0)
+		return (NULL);
+	ft_bzero(p, nmemb * size);
+	return (p);
+}

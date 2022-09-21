@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2020/02/23 22:36:48 by clesaffr          #+#    #+#             */
+/*   Updated: 2021/11/17 20:22:22 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+void	ft_putnbr_fd(int nb, int fd)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	unsigned int	nbtest;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nbtest = -1 * nb;
+	}
+	else
+		nbtest = nb;
+	if (nbtest >= 10)
+	{
+		ft_putnbr_fd(nbtest / 10, fd);
+	}
+	ft_putchar_fd((nbtest % 10 + '0'), fd);
+}

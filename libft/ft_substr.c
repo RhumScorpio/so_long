@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2020/02/26 16:28:29 by clesaffr          #+#    #+#             */
+/*   Updated: 2020/02/26 16:44:30 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	char	*result;
+	size_t	i;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	result = NULL;
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= (unsigned int)ft_strlen(s))
+		return (ft_strdup(""));
+	result = malloc(sizeof(char) * len + 1);
+	if (result == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		result[i] = s[i + start];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}

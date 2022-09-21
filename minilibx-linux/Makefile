@@ -20,3 +20,5 @@ clean	:
 	./configure clean
 
 re	: clean all
+
+.PHONY: clean all re

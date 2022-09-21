@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2020/02/22 09:22:43 by clesaffr          #+#    #+#             */
+/*   Updated: 2021/11/17 20:30:02 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	size_t			i;
+	unsigned char	*p;
+	unsigned char	chr;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	p = (unsigned char *)s;
+	chr = (unsigned char)c;
+	i = 0;
+	while (i < n)
+	{
+		if (p[i] == chr)
+			return (p + i);
+		i++;
+	}
+	return (NULL);
+}

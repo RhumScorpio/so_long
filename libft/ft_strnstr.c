@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/20 21:11:55 by clesaffr         ###   ########.fr       */
+/*   Created: 2020/02/21 16:38:26 by clesaffr          #+#    #+#             */
+/*   Updated: 2021/11/17 20:25:15 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-
-typedef struct s_screen
+char	*ft_strnstr(char *str, char *to_find, int len)
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_screen;
+	int	i;
+	int	j;
 
-typedef struct s_data
-{
-	t_screen	img1;
-	void	*mlx;
-	void	*mlxWin;
-	void	*mlxImg;
-	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
-}				t_data;
-
-#endif
+	i = 0;
+	j = 0;
+	if (*to_find == '\0')
+		return (str);
+	while (*(str + i) != '\0' && i < len)
+	{
+		j = 0;
+		while (*(to_find + j) == *(str + i + j) && i + j < len)
+		{
+			if (*(to_find + j + 1) == '\0')
+				return (str + i);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
