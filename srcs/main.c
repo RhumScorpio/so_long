@@ -12,6 +12,24 @@
 
 #include "../includes/so_long.h"
 
+int	close_window(t_data *data)
+{
+	mlx_destroy_window(data->mlx, data->mlxWin);
+	return (0);
+}
+
+int	direction(int key, t_data *data)
+{
+	printf("%d\n", key);
+	if (key == 65307)
+		close_window(data);
+	return (0);
+}
+
+//direction must be changing data to the right direction.
+//image creation must be from the imgAddr get from XPMimg *Mur *Sol *Perso *Sol+Collectible *Sol+Sortie  
+//frame must be secondary to the creation of image
+
 int	frame(t_data *data)
 {
 	/*int x;
@@ -21,12 +39,15 @@ int	frame(t_data *data)
 	y = 0;*/
 	t_screen	sprite;
 
-	//data->mlxImg = mlx_new_image(data->mlxWin, 1920, 1080);
+	//data->mlxImg = mlx_new_image(data->mlxWin, 64, 64);
 	sprite.img = mlx_xpm_file_to_image(data->mlx, "mario_1_.xpm", &(sprite.width), &(sprite.height));
-	//(void)img;
-	mlx_put_image_to_window(data->mlx, data->mlxWin, sprite.img, 0, 0);
-
 	//data->addrImg = mlx_get_data_addr(data->mlxWin, data->bpp, data->size, data->endian);
+	data->mlxImg = sprite.img;
+	mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 64);
+	mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 64, 64);
+	mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 64, 0);
+	mlx_destroy_image(data->mlx, data->mlxImg);
 	/*while (x < 120 && y < 120)
 	{
 		//mlx_pixel_put(data->mlx, data->mlxWin, x, y, 1);
@@ -37,23 +58,6 @@ int	frame(t_data *data)
 	return (1);
 }
 
-int	direction(int key, t_data *data)
-{
-	printf("%d\n", key);
-	if (key == 65307)
-	{
-	//	mlx_destroy_image(data->mlxWin, data->mlxImg);
-		mlx_destroy_window(data->mlx, data->mlxWin);
-	//	mlx_destroy_display(data->mlx);
-	}
-	return (0);
-}
-
-int	direction2(int key)
-{
-	printf("%d\n", key);
-	return (0);
-}
 
 int	main(void)
 {
@@ -61,9 +65,11 @@ int	main(void)
 
 	data.mlx = mlx_init();
 	data.mlxWin = mlx_new_window(data.mlx, 1920, 1080, "Hello world!");
+
+	mlx_loop_hook(data.mlx, frame, &data);
+	mlx_mouse_hook(data.mlxWin, direction, NULL);
 	mlx_key_hook(data.mlxWin, direction, &data);
-	mlx_mouse_hook(data.mlxWin, direction2, NULL);
-	frame(&data);
+	mlx_hook(data.mlxWin, 17, 1L<<0, close_window, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
