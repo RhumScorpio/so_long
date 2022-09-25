@@ -19,19 +19,19 @@
 #include "../minilibx-linux/mlx_int.h"
 #include "../minilibx-linux/mlx.h"
 
-typedef struct s_screen
+typedef struct s_scrn
 {
 	void	*img;
 	int		width;
 	int		height;
-}				t_screen;
+}				t_scrn;
 
 typedef struct s_data
 {
-	t_screen	img1;
 	void	*mlx;
 	void	*mlxWin;
 	void	*mlxImg;
+	t_scrn	*sprite;
 	char	*addrImg;
 	int		*bpp;
 	int		*size;
