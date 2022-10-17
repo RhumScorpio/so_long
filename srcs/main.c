@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+#include <stdint.h>
+#include <stdio.h>
 
 int	close_window(t_data *data)
 {
@@ -26,34 +28,50 @@ int	direction(int key, t_data *data)
 		close_window(data);
 	return (0);
 }
-
-//direction must be changing data to the right direction.
+//direction must be changing data to the right direction. IN LOOP FUNCT frame creation.
+// MALLOC FOR --> sprites
+// MALLOC FOR --> global error YOU CAN MAKE A FUNCTION WITH STATIC DECLARATION AND CALL IT TO RETURN A VALUE AROUND THE CODE
+//
 //image creation must be from the imgAddr get from XPMimg *Mur *Sol *Perso *Sol+Collectible *Sol+Sortie  
 //frame must be secondary to the creation of image
+//IMPORTANT ---> char modification must be in stack, cp img addr from sprite into buffers that can be used to copy char into the RIGHT CONFIGURATION
+//
+// CONSEILS DES PROS
+// Lire Clean Code regulierement
+// Les fonctions cascades qui return des fonctions
+// La super fonction a variable STATIC
+// La norme a 10 lignes par FUNCTION en theorie si c'est au dessus on peut encore la reduire
+// pouvoir garder les fonctions en memoire si elle sont bien c'est facile
+// Le tri des fonctions en ordre d'execution du bas vers le haut
+// La fonction qui fait plusieurs chose doit etre bien utilisee
+// Jamais plusieurs niveaux de if dans les while > 1 seul niveau autorise
+// TESTER PUTAIIIIIIIIN le tester doit etre ADAPTE pour tout tester en une seule fois
+// Prendre la ritaline ou concerta apres avoir mange et pas trop au debut
+// Il faudrait pouvoir lire le code TRES FACILEMENT apres tout ca
+// L'important c'est aussi de savoir ce qu'on veut ecrire comme style de code
+// L'OPTIMISATION PEUT ALLER TOUJOURS PLUS LOIN
 
 int	frame(t_data *data)
 {
-	void	*sprite_img;
-	int x;
-	int	y;
+    void	*sprite_img;
+    int x;
+    int	y;
 
-	x = data->sprite->height;
-	y = data->sprite->height;
-	sprite_img = data->sprite->img;
-	//data->mlxImg = mlx_new_image(data->mlxWin, 64, 64);
-	//data->addrImg = mlx_get_data_addr(data->mlxWin, data->bpp, data->size, data->endian);
-	mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, 0, y);
-	mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, x, y);
-	mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, x, 0);
-	/*while (x < 120 && y < 120)
-	{
-		//mlx_pixel_put(data->mlx, data->mlxWin, x, y, 1);
-		x++;
-		y++;
-	}*/
-	//mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 0);
-	return (1);
+    x = data->sprite->height;
+    y = data->sprite->height;
+    printf("x/%d, y/%d", x, y);
+    sprite_img = data->sprite->img;
+    //data->mlxImg = mlx_new_image(data->mlxWin, 64, 64);
+    //data->addrImg = mlx_get_data_addr(data->mlxWin, data->bpp, data->size, data->endian);
+    mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, 0, 0);
+    /*while (x < 120 && y < 120)
+    {
+        //mlx_pixel_put(data->mlx, data->mlxWin, x, y, 1);
+        x++;intra
+        y++;
+    }*/
+    //mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 0);
+    return (1);
 }
 
 void	get_xpm_files()

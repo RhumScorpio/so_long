@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include "../minilibx-linux/mlx_int.h"
 #include "../minilibx-linux/mlx.h"
-
+#include "../libft/libft.h"
 typedef struct s_scrn
 {
 	void	*img;
