@@ -6,11 +6,10 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 16:47:39 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/04 22:56:00 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:24:02 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include "get_next_line.h"
 
 #define BUFFER_SIZE 100
 

@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:13:45 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/09/04 22:55:00 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:25:08 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include <signal.h>
 # include <errno.h>
 
+typedef struct s_all
+{
+	char	*str;
+}				t_all;
+
+int				get_next_line(int fd, char **line);
 void			*ft_bzero(void *src, size_t n);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
