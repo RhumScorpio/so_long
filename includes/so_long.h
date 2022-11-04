@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/10/28 20:36:03 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/11/03 21:07:05 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 #include "../minilibx-linux/mlx_int.h"
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
+
+typedef struct	s_items
+{
+	int	collect;
+	int	persona;
+	int	exit;
+}				t_items;
 
 typedef struct s_scrn
 {
