@@ -53,9 +53,9 @@ int	direction(int key, t_data *data)
 
 int	frame(t_data *data)
 {
-    void	*sprite_img;
-    int x;
-    int	y;
+    void    *sprite_img;
+    int               x;
+    int	              y;
 
     x = data->sprite->height;
     y = data->sprite->height;
@@ -74,10 +74,10 @@ int	frame(t_data *data)
     return (1);
 }
 
-void	get_xpm_files()
+/*void	get_xpm_files()
 {
 
-}
+}*/
 
 int	main(void)
 {

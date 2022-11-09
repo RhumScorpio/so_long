@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+#include <stdio.h>
 
 int the_line_is_wall(char *line)
 {
@@ -18,7 +19,7 @@ int the_line_is_wall(char *line)
 
     i = 0;
     while (line[i] == '1')
-        i++;
+        ++i;
     return (i);
 }
 
@@ -45,8 +46,10 @@ int the_line_is_in(char *line, t_items *items)
     if (line[0] != '1')
         return (-1);
     i = 1;
-    while (is_some_item(line[i], items) != -1)
-        i++;
+    while (line[i] && is_some_item(line[i], items) != -1)
+        ++i;
+    if (line[i - 1] != '1')
+        return (-1);
     return (i);
 }
 
@@ -58,9 +61,21 @@ int checkif_line_valid(int i, char **line, t_items *items)
         return (the_line_is_in(*line, items));
 }
 
+void print_items(t_items *items)
+{
+    printf("collectibles = %d\npersona = %d\nexit = %d\n", items->collect, items->persona, items->exit);
+}
+
+int items_are_valid(t_items *items)
+{
+    if (items->collect == 0 || items->persona != 1 || items->exit != 1)
+        return (0);
+    else
+        return (1);
+}
+
 int	parsing(char *file_name)
 {
-    char    *line;
     int     fd;
     int     i;
 
@@ -76,34 +91,71 @@ int	parsing(char *file_name)
         && file_name[i - 2] == 'e' && file_name[i - 1] == 'r')
     {
         fd = open(file_name, O_RDONLY);
-        if (i == -1)
-            ft_putstr("Opening failed");
+        if (fd == -1)
+        {
+            ft_putstr("Opening failed, does file exist?");
+            return (0);
+        }
     }
     else
+    {
         ft_putstr("File does not end with .ber");
+        return (0);
+    }
     // Get Next Line
-
     int     y;
     int     x;
-    int     ret;
-    t_items items;
-
-    ret = get_next_line(fd, &line);
-    if (ret < 3)
-        return (0);
-    x = ret;
+    static t_items items;
+    char    *line;
+   
+    line = NULL;
+    y = 0;
     i = 1;
-    while (ret == x)
-    {
-        if (checkif_line_valid(i, &line, &items) != x)
-            return (0);
-        ret = get_next_line(fd, &line);
-        i++;
-    }
-    y = i;
-    i = 0;
-    if (checkif_line_valid(i, &line, &items) < 0)
+    x = get_next_line(fd, &line);
+    printf("get_next_line = %d for fd %d\n", x, fd);
+    if (x < 3)
         return (0);
-    else
+    while (line)
+    {
+        printf("line = %s\n", line);
+        if (checkif_line_valid(i, &line, &items) != x)
+        {
+            printf("Line not valid, checkif_line_valid is %d\n", checkif_line_valid(i, &line, &items));
+            break;
+        }
+        else
+            printf("Line is valid\n");
+        free(line);
+        line = NULL;
+        get_next_line(fd, &line);
+        i++;
+        y++;
+    }
+    printf("Width is x --> %d\nLenght is y --> %d\n", x, y);
+    free(line);
+    close(fd);
+    i = 0;
+    if (items_are_valid(&items))
+    {
+        ft_putstr("File is a good file!\n");
+        print_items(&items);
         return (1);
+    }
+    else
+    {
+        ft_putstr("Items not valid\n");
+        print_items(&items);
+        return (-1);
+    }
+}
+
+int main(int ac, char **av)
+{
+    if (ac != 2)
+    {
+        ft_putstr("Put one file please\n");
+        return (0);
+    }
+    parsing(av[1]);
+    return (0);
 }

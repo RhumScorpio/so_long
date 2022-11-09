@@ -16,7 +16,7 @@ CC			=	gcc
 
 CFLAGS		=  -g3 -Wall -Werror -Wextra
 
-SRCS		=	main.c
+SRCS		=	parsing.c
 
 INCLUDES	=	-I ./includes -I ./minilibx-linux
 

@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 16:47:39 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/10/28 20:24:02 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:31:05 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -78,6 +78,7 @@ int	get_next_line(int fd, char **line)
 {
 	static t_all	all;
 	int				end;
+	int				size;
 	char			test[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, test, 0) == -1)
@@ -86,5 +87,6 @@ int	get_next_line(int fd, char **line)
 	change_memorystring(&all, end);
 	if (end == 0)
 		return (0);
-	return (1);
+	size = ft_strlen(*line);
+	return (size);
 }
