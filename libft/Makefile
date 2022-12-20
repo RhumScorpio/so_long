@@ -69,7 +69,7 @@ $(PATH_OBJS)%.o		: %.c
 						$(CC) $(CFLAGS) -c $< -o $@
 
 clean	:
-			rm -rf $(F_OBJS) $(PATH_OBJS)
+			rm -rf $(F_OBJS) $(PATH_OBJS) $(NAME)
 
 fclean	: clean
 

@@ -42,12 +42,12 @@ typedef struct s_map
    int  height_img;
 }              t_map;
 
-typedef struct s_screens;
+typedef struct s_screens
 {
-    s_scrn sprite_wall;
-    s_scrn sprite_sol;
-    s_scrn sprite_mario;
-    s_scrn sprite_collect;
+    t_scrn sprite_wall;
+    t_scrn sprite_sol;
+    t_scrn sprite_mario;
+    t_scrn sprite_collect;
 }               t_screens;
 
 typedef struct s_data

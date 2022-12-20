@@ -84,6 +84,7 @@ int try_opening(char *file_name)
         ft_putstr("Opening failed, does file exist?");
         return (0);
     }
+	close(fd);
 	//if everything goes well return 1
 	return (1);
 }
@@ -130,7 +131,7 @@ int	gnl_file(char *line, int fd, int *x, t_items *items)
 	int	y;
 	int	i;
 
-	gnl = get_next_line(fd, line);
+	gnl = get_next_line(fd, &line);
 	*x = gnl;
 	y = 0;
 	i = 1;
@@ -138,18 +139,19 @@ int	gnl_file(char *line, int fd, int *x, t_items *items)
     {
         printf("line = %s\n", line);
         i++;
-        if (checkif_line_valid(i, line, items) != *x)
+        if (checkif_line_valid(i, &line, items) != *x)
             break;
         else
             printf("Line is valid\n");
         free(line);
         line = NULL;
-		gnl = get_next_line(fd, line);
+		gnl = get_next_line(fd, &line);
         y++;
     }
     if (*x < 3)
         return (0);
-	return (y);
+	else
+		return (y);
 }
 
 int	check_file_lines(char *file_name)
@@ -162,28 +164,26 @@ int	check_file_lines(char *file_name)
     int     x;
     static t_items items;
     char    *line;
-   
-    fd = 0;
+  
+    fd = open(file_name, O_RDONLY);
 	x = 0;
-    i = 1;
     line = NULL;
-	y = gnl_file(&line, fd, &x, &items);
+	y = gnl_file(line, fd, &x, &items);
     printf("Width is x --> %d\nLenght is y --> %d\n", x, y);
     free(line);
     close(fd);
-	return(if_items_valid(&items));
+	return(if_items_valid(items));
 }
 
 int	parsing(char *file_name)
 {
-    int     i;
-
     //Check File Extension
     if (!file_name)
         return (0);
     check_file_extension(file_name);
 	// Get Next Line
 	check_file_lines(file_name);
+	return (1);
 }
 
 int main(int ac, char **av)
