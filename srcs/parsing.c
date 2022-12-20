@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 14:47:25 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/08/27 14:47:29 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:42:15 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,70 +74,42 @@ int items_are_valid(t_items *items)
         return (1);
 }
 
-int	parsing(char *file_name)
+int try_opening(char *file_name)
 {
-    int     fd;
-    int     i;
+	int	fd;
 
-    fd = 0;
-    //Check File Extension
-    if (!file_name)
+    fd = open(file_name, O_RDONLY);
+    if (fd == -1)
+    {
+        ft_putstr("Opening failed, does file exist?");
         return (0);
-    else
-        i = ft_strlen(file_name);
+    }
+	//if everything goes well return 1
+	return (1);
+}
+
+int	check_file_extension(char *file_name)
+{
+	int	i;
+
+	i = ft_strlen(file_name);
     if (i < 5)
     {
         ft_putstr("File name is too short");
         return (0);
     }
-    if (file_name[i - 4] == '.' && file_name[i - 3] == 'b' 
+    else if (file_name[i - 4] == '.' && file_name[i - 3] == 'b' 
         && file_name[i - 2] == 'e' && file_name[i - 1] == 'r')
-    {
-        fd = open(file_name, O_RDONLY);
-        if (fd == -1)
-        {
-            ft_putstr("Opening failed, does file exist?");
-            return (0);
-        }
-    }
+		return(try_opening(file_name));
     else
     {
         ft_putstr("File does not end with .ber");
         return (0);
     }
-    // Get Next Line
-    int     y;
-    int     x;
-    static t_items items;
-    char    *line;
-   
-    line = NULL;
-    y = 0;
-    i = 1;
-    x = get_next_line(fd, &line);
-    printf("get_next_line = %d for fd %d\n", x, fd);
-    if (x < 3)
-        return (0);
-    while (line)
-    {
-        printf("line = %s\n", line);
-        if (checkif_line_valid(i, &line, &items) != x)
-        {
-            printf("Line not valid, checkif_line_valid is %d\n", checkif_line_valid(i, &line, &items));
-            break;
-        }
-        else
-            printf("Line is valid\n");
-        free(line);
-        line = NULL;
-        get_next_line(fd, &line);
-        i++;
-        y++;
-    }
-    printf("Width is x --> %d\nLenght is y --> %d\n", x, y);
-    free(line);
-    close(fd);
-    i = 0;
+}
+
+int	if_items_valid(t_items items)
+{
     if (items_are_valid(&items))
     {
         ft_putstr("File is a good file!\n");
@@ -150,6 +122,68 @@ int	parsing(char *file_name)
         print_items(&items);
         return (-1);
     }
+}
+
+int	gnl_file(char *line, int fd, int *x, t_items *items)
+{
+	int	gnl;
+	int	y;
+	int	i;
+
+	gnl = get_next_line(fd, line);
+	*x = gnl;
+	y = 0;
+	i = 1;
+    while (gnl)
+    {
+        printf("line = %s\n", line);
+        i++;
+        if (checkif_line_valid(i, line, items) != *x)
+            break;
+        else
+            printf("Line is valid\n");
+        free(line);
+        line = NULL;
+		gnl = get_next_line(fd, line);
+        y++;
+    }
+    if (*x < 3)
+        return (0);
+	return (y);
+}
+
+int	check_file_lines(char *file_name)
+{
+	//Where should I store map info?
+	//When do I create the data struct?
+	//I should do a first gnl for error handling THEN do a malloc with the data
+    int     fd;
+    int     y;
+    int     x;
+    static t_items items;
+    char    *line;
+   
+    fd = 0;
+	x = 0;
+    i = 1;
+    line = NULL;
+	y = gnl_file(&line, fd, &x, &items);
+    printf("Width is x --> %d\nLenght is y --> %d\n", x, y);
+    free(line);
+    close(fd);
+	return(if_items_valid(&items));
+}
+
+int	parsing(char *file_name)
+{
+    int     i;
+
+    //Check File Extension
+    if (!file_name)
+        return (0);
+    check_file_extension(file_name);
+	// Get Next Line
+	check_file_lines(file_name);
 }
 
 int main(int ac, char **av)
