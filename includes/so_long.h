@@ -34,12 +34,29 @@ typedef struct s_scrn
 	int		height;
 }				t_scrn;
 
+typedef struct s_map
+{
+   int  width;
+   int  height;
+   int  width_img;
+   int  height_img;
+}              t_map;
+
+typedef struct s_screens;
+{
+    s_scrn sprite_wall;
+    s_scrn sprite_sol;
+    s_scrn sprite_mario;
+    s_scrn sprite_collect;
+}               t_screens;
+
 typedef struct s_data
 {
 	void	*mlx;
 	void	*mlxWin;
 	void	*mlxImg;
-	t_scrn	*sprite;
+	t_screens	*sprites;
+    t_map   *map;
 	char	*addrImg;
 	int		*bpp;
 	int		*size;

@@ -81,7 +81,10 @@ int	parsing(char *file_name)
 
     fd = 0;
     //Check File Extension
-    i = ft_strlen(file_name);
+    if (!file_name)
+        return (0);
+    else
+        i = ft_strlen(file_name);
     if (i < 5)
     {
         ft_putstr("File name is too short");
