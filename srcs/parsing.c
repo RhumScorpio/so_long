@@ -18,6 +18,7 @@ int the_line_is_wall(char *line)
     int i;
 
     i = 0;
+	printf("checked wall\n");
     while (line[i] == '1')
         ++i;
     return (i);
@@ -43,6 +44,7 @@ int the_line_is_in(char *line, t_items *items)
 {
     int i;
 
+	printf("checked in\n");
     if (line[0] != '1')
         return (-1);
     i = 1;
@@ -138,14 +140,16 @@ int	gnl_file(char *line, int fd, int *x, t_items *items)
     while (gnl)
     {
         printf("line = %s\n", line);
-        i++;
         if (checkif_line_valid(i, &line, items) != *x)
             break;
         else
             printf("Line is valid\n");
+        i++;
         free(line);
         line = NULL;
 		gnl = get_next_line(fd, &line);
+		if (gnl == 0)
+			i = 0;
         y++;
     }
     if (*x < 3)
