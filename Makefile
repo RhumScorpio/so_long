@@ -6,7 +6,7 @@
 #    By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 07:38:28 by clesaffr          #+#    #+#              #
-#    Updated: 2022/10/28 20:37:02 by clesaffr         ###   ########.fr        #
+#    Updated: 2022/12/21 16:49:36 by clesaffr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ CC			=	gcc
 
 CFLAGS		=  -g3 -Wall -Werror -Wextra
 
-SRCS		=	parsing.c
+SRCS		=	core_parsing.c\
+				line_reading.c\
+				checking_line.c\
+				checking_items.c
 
 INCLUDES	=	-I ./includes -I ./minilibx-linux
 

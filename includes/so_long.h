@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/11/03 21:07:05 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:54:35 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,25 @@ typedef struct s_data
 	int		*size;
 	int		*endian;
 }				t_data;
+
+
+void	print_items(t_items *items);
+int		if_items_valid(t_items items);
+int		items_are_valid(t_items *items);
+
+int		the_line_is_wall(char *line);
+int		is_some_item(char c, t_items *items);
+int		the_line_is_in(char *line, t_items *items);
+int		checkif_line_valid(int i, char **line, t_items *items);
+
+
+int		pre_gnl_to_y(char *file_name);
+int		gnl_file(char *line, int fd, int y, t_items *items);
+
+int 	try_opening(char *file_name);
+int		check_file_extension(char *file_name);
+int		check_file_lines(char *file_name);
+int		parsing(char *file_name);
+int		main(int ac, char **av);
 
 #endif
