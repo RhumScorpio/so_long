@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/22 18:29:22 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:32:20 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int 	try_opening(char *file_name);
 int		check_file_extension(char *file_name);
 int		check_file_lines(char *file_name, int *x, int *y);
 int		parsing(char *file_name, int *x, int *y);
+
+int		inspecting_map(int	init, char *file_name, int x, int y);
+void	free_mapping_variable(char **mapping);
+char	**malloc_mapping(int y);
+
 int		main(int ac, char **av);
 
 #endif

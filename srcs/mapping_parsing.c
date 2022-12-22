@@ -6,12 +6,12 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:12:43 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/22 21:19:18 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:32:38 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
 
-char	**malloc_variable(int y)
+char	**malloc_mapping(int y)
 {
 	char	**mapping;
 
@@ -33,7 +33,7 @@ void	free_mapping_variable(char **mapping)
 	free(mapping);
 }
 
-int	malloc_map(int	init, char *file_name, int x, int y)
+int	inspecting_map(int	init, char *file_name, int x, int y)
 {
 	int		fd;
 	int		gnl;
@@ -44,7 +44,7 @@ int	malloc_map(int	init, char *file_name, int x, int y)
 		return (0);
 	i = 0;
 	fd = open(file_name, O_RDONLY);
-	mapping = malloc_variable(y);
+	mapping = malloc_mapping(y);
 	if (!mapping)
 		return (0);
 	while ((gnl = get_next_line(fd, &mapping[i])) && i < x )
@@ -75,6 +75,6 @@ int	main(int ac, char **av)
 	parsing_res = parsing(av[1], &x, &y);
 	if (parsing_res)
 		printf("PARSING IS GOOD\n");
-	malloc_map(parsing_res, av[1], x, y);
+	inspecting_map(parsing_res, av[1], x, y);
 	return (0);
 }
