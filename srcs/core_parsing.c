@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:33:53 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/21 19:38:42 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:14:38 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,53 +46,31 @@ int	check_file_extension(char *file_name)
 	}
 }
 
-//Where should I store map info?
-//When do I create the data struct?
-//I should do a first gnl for error handling THEN do a malloc with the data
-
-int	check_file_lines(char *file_name)
+int	check_file_lines(char *file_name, int *x, int *y)
 {
 	static t_items	items;
 	int				fd;
-	int				y;
-	int				x;
 	char			*line;
 
 	line = NULL;
-	y = pre_gnl_to_y(file_name);
+	*y = pre_gnl_to_y(file_name);
 	fd = open(file_name, O_RDONLY);
-	x = gnl_file(line, fd, y, &items);
+	*x = gnl_file(line, fd, *y, &items);
 	close(fd);
-	if (x > 0)
+	if (*x > 0)
 		return (if_items_valid(items));
 	else
 		return (-1);
 }
 
-int	parsing(char *file_name)
+int	parsing(char *file_name, int *x, int *y)
 {
 	if (!file_name)
 		return (0);
 	if (check_file_extension(file_name))
 	{
-		if (check_file_lines(file_name) > 0)
+		if (check_file_lines(file_name, x, y) > 0)
 			return (1);
 	}
-	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	int	parsing_res;
-
-	parsing_res = 0;
-	if (ac != 2)
-	{
-		ft_putstr("Put one file please\n");
-		return (0);
-	}
-	parsing_res = parsing(av[1]);
-	if (parsing_res)
-		printf("PARSING IS GOOD\n");
 	return (0);
 }

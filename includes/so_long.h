@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/21 17:54:35 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/22 18:29:22 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int		gnl_file(char *line, int fd, int y, t_items *items);
 
 int 	try_opening(char *file_name);
 int		check_file_extension(char *file_name);
-int		check_file_lines(char *file_name);
-int		parsing(char *file_name);
+int		check_file_lines(char *file_name, int *x, int *y);
+int		parsing(char *file_name, int *x, int *y);
 int		main(int ac, char **av);
 
 #endif

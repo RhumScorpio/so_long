@@ -6,12 +6,12 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 16:47:39 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/21 19:08:24 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:10:15 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 1
 
 static int	append_readtostr(int fd, t_all *a)
 {
