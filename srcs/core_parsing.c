@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:33:53 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/22 21:14:38 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/23 20:32:58 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,23 @@ int	check_file_lines(char *file_name, int *x, int *y)
 	*x = gnl_file(line, fd, *y, &items);
 	close(fd);
 	if (*x > 0)
-		return (if_items_valid(items));
+		return (if_items_valid(&items));
 	else
 		return (-1);
 }
 
 int	parsing(char *file_name, int *x, int *y)
 {
+	int	collectibles;
+
+	collectibles = 0;
 	if (!file_name)
 		return (0);
 	if (check_file_extension(file_name))
 	{
-		if (check_file_lines(file_name, x, y) > 0)
-			return (1);
+		collectibles = check_file_lines(file_name, x, y);
+		if (collectibles > 0)
+			return (collectibles);
 	}
 	return (0);
 }

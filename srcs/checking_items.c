@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:38:24 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/21 19:26:49 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:36:44 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	items_are_valid(t_items *items)
 		return (1);
 }
 
-int	if_items_valid(t_items items)
+int	if_items_valid(t_items *items)
 {
-	if (items_are_valid(&items))
-		return (1);
+	if (items_are_valid(items))
+		return (items->collect);
 	else
 	{
 		ft_putstr("Items not valid\n");

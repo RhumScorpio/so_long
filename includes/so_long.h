@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/22 21:32:20 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/23 20:34:49 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 #include "../minilibx-linux/mlx_int.h"
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
+
+typedef struct	s_valid_path
+{
+	int	clt_total;
+	int	exiting;
+
+}				t_valid_path;
 
 typedef struct	s_items
 {
@@ -64,8 +71,9 @@ typedef struct s_data
 }				t_data;
 
 
+
 void	print_items(t_items *items);
-int		if_items_valid(t_items items);
+int		if_items_valid(t_items *items);
 int		items_are_valid(t_items *items);
 
 int		the_line_is_wall(char *line);
@@ -82,10 +90,13 @@ int		check_file_extension(char *file_name);
 int		check_file_lines(char *file_name, int *x, int *y);
 int		parsing(char *file_name, int *x, int *y);
 
+int 	check_path_to_win_game(char **mapping, int collectibles);
+
 int		inspecting_map(int	init, char *file_name, int x, int y);
 void	free_mapping_variable(char **mapping);
+void	close_mapping_variable(char **mapping);
+void	print_mapping(char **mapping);
 char	**malloc_mapping(int y);
 
-int		main(int ac, char **av);
 
 #endif

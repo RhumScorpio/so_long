@@ -6,7 +6,7 @@
 #    By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 07:38:28 by clesaffr          #+#    #+#              #
-#    Updated: 2022/12/22 13:14:19 by clesaffr         ###   ########.fr        #
+#    Updated: 2022/12/23 10:33:18 by clesaffr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS		=	core_parsing.c\
 				line_reading.c\
 				checking_line.c\
 				checking_items.c\
-				mapping_parsing.c
+				mapping_parsing.c\
+				finding_a_valid_path.c
 
 INCLUDES	=	-I ./includes -I ./minilibx-linux
 
