@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:28:48 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/26 01:09:28 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/26 09:44:26 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -84,20 +84,27 @@ int	striking_every_valid_tiles(char **map)
 	int				y;
 	int				x;
 
+	// FINDING PERSONA POSITION
 	y = 0;
 	x = 0;
 	while (map[y])
 	{
 		while(map[y][x])
 		{
-			printf("%c|", map[y][x]);
 			if (map[y][x] == 'P')
+			{
+				items.persona = 1;
 				break ;
+			}
 			x++;
 		}
+		if (items.persona)
+			break ;
+		x = 0;
 		y++;
 	}
 	printf("P = map[%d][%d]\n", y, x);
+	// DOING LOOP
 	return (items.collect);
 }
 
