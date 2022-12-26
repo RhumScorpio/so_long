@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/23 20:34:49 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/26 00:50:03 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 #include "../minilibx-linux/mlx_int.h"
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
-
-typedef struct	s_valid_path
-{
-	int	clt_total;
-	int	exiting;
-
-}				t_valid_path;
 
 typedef struct	s_items
 {

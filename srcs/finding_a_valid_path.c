@@ -6,48 +6,10 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:28:48 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/23 20:42:12 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/26 01:09:28 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
-//Questions apposee
-//Quel est le fonctionnement du systeme et pourquoi les neurones du cerveau
-// rentrent dans un systeme semblable au mycelium. Decrire le mycelium en tant que mecanisme biologique.
-//Pourquoi la societe, en structure de controle des humains, est une sorte de mycelium au final?
-/*
-int	position_start(char **mapping, int *i, int *j)
-{
-	while (mapping[i])
-	{
-		while (mapping[i][j])
-		{
-			if(mapping[i][j] == 'P')
-				return (0);
-			*j++;
-		}
-		*i++;
-	}
-	return (0);
-}
-
-void	loop_till_filled(char **mapping, int collectibles)
-{
-	int	clt_total;
-	int	i;
-	int	j;
-	
-	i = 0;
-	j = 0;
-	clt_total = 0;
-	//position_start(mapping, &i, &j);
-	//While not filled
-	if (valid_fill(mapping[i][j]))
-	{
-		
-	}
-
-}
-*/
 
 int	mapping_x(char **mapping)
 {
@@ -78,38 +40,65 @@ void	print_map(char **map)
 		printf("%s\n", map[i++]);
 }
 
+void	filling_copymap(char *map, char *mapping, int x)
+{
+	int	i;
+
+	i = 0;
+	while (i < x)
+	{
+		map[i] = mapping[i + 1];
+		i++;
+	}
+	map[i] = '\0';
+}
+
 char	**copy_map_for_path_search(char **mapping)
 {
 	int		x;
-	int		i;
 	int		y;
 	int		j;
 	char	**map;
 
-	x = mapping_x(mapping) - 1;
+	x = mapping_x(mapping) - 2;
 	y = mapping_y(mapping) - 2;
-	i = 0;
 	j = 0;
 	map = malloc_mapping(y);
 	if (!map)
 		return(NULL);
-	while (j <= y)
+	while (j < y)
 	{
-		map[j] = (char *)malloc(sizeof(char) * x);
+		map[j] = (char *)malloc(sizeof(char) * (x + 1));
 		if (!map)
 			return(NULL);
-		while (i < x)
-		{
-			printf("map[%d][%d] = mapping[%d][%d]\n", j, i, j+1, i+1);
-			map[j][i] = mapping[j + 1][i + 1];
-			i++;
-		}
-		map[j][i] = '\0';
-		printf("&& %s\n", map[j]);
+		filling_copymap(map[j], mapping[j + 1], x);
 		j++;
 	}
 	print_map(map);
 	return (map);
+}
+
+int	striking_every_valid_tiles(char **map)
+{
+	static t_items	items;
+	int				y;
+	int				x;
+
+	y = 0;
+	x = 0;
+	while (map[y])
+	{
+		while(map[y][x])
+		{
+			printf("%c|", map[y][x]);
+			if (map[y][x] == 'P')
+				break ;
+			x++;
+		}
+		y++;
+	}
+	printf("P = map[%d][%d]\n", y, x);
+	return (items.collect);
 }
 
 int	check_path_to_win_game(char	**mapping, int collectibles)
@@ -120,13 +109,19 @@ int	check_path_to_win_game(char	**mapping, int collectibles)
 	//Stocker tout les P_precedent pour un check s'il sont bien complets pour la zone
 	//Ou changer une valeur (P_passe) pour chaques pixels.
 	//If !(i == collectibles) || !(e+) then return 0
-	char **map_searched;
 
+	char **map_searched;
+	int		total_collect;
+
+	total_collect = 0;	
 	printf("Collect total = %d\n", collectibles);
 	map_searched = copy_map_for_path_search(mapping);
+	total_collect = striking_every_valid_tiles(map_searched);
 	free_mapping_variable(map_searched);
-//	loop_till_filled(mapping, collectibles);
-	return (0);
+	if (collectibles == total_collect)
+		return (1);
+	else
+		return (0);
 }
 
 int	main(int ac, char **av)

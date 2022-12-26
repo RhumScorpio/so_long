@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:35:44 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/21 19:37:27 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/26 00:22:06 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	gnl_file(char *line, int fd, int y, t_items *items)
 		gnl = get_next_line(fd, &line);
 	}
 	free(line);
-	if (x < 3 || error < 0)
+	if (x < 3 || y < 3 || error < 0)
 		return (file_error());
 	else
 		return (x);

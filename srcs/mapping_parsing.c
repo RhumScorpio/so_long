@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:12:43 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/23 20:37:44 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/26 00:16:37 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -16,7 +16,6 @@ char	**malloc_mapping(int y)
 	char	**mapping;
 
 	mapping = NULL;
-	printf("y == %d\n", y);
 	mapping = (char **)malloc(sizeof(char *) * (y + 1));
 	if (mapping == NULL)
 		return (NULL);
