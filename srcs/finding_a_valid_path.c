@@ -6,85 +6,68 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:28:48 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/26 09:44:26 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/27 01:08:14 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
 
-int	mapping_x(char **mapping)
+static int recursive_tile_flooding(char **map, int	x, int	y)
 {
-	int	x;
+	int	born_y;
+	int	born_x;
+	static int	total;
 
-	x = 0;
-	while (mapping[0][x])
-		x++;
-	return(x);
+	born_y = mapping_y(map);
+	born_x = ft_strlen(map[0]);
+	if ((born_x > x && x >= 0) && (born_y > y && y >= 0))
+	{
+		if (map[y][x] == 'C')
+			total++;
+		if(map[y][x] == 'E' || map[y][x] == 'e')
+			map[y][x] = 'e';
+		else
+			map[y][x] = '1';
+		if ((x + 1 < born_x) && map[y][x + 1] != '1' && map[y][x])
+			recursive_tile_flooding(map, x + 1, y);
+		if ((y - 1 >= 0) && map[y - 1][x] != '1' && map[y][x])
+			recursive_tile_flooding(map, x, y - 1);
+		if ((x - 1 >= 0) && map[y][x - 1] != '1' && map[y][x])
+			recursive_tile_flooding(map, x - 1, y);
+		if ((y + 1 < born_y) && map[y + 1][x] != '1' && map[y][x])
+			recursive_tile_flooding(map, x, y + 1);
+	}
+	return (total);
 }
 
-int	mapping_y(char **mapping)
+static int	finding_little_e(char **map)
 {
-	int	y;
+	int				y;
+	int				x;
+	int			found;
 
 	y = 0;
-	while (mapping[y])
+	x = 0;
+	found = 0;
+	while (map[y])
+	{
+		while(map[y][x])
+		{
+			if (map[y][x] == 'e')
+				found = 1;
+			x++;
+		}
+		x = 0;
 		y++;
-	return(y);
-}
-
-void	print_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
-}
-
-void	filling_copymap(char *map, char *mapping, int x)
-{
-	int	i;
-
-	i = 0;
-	while (i < x)
-	{
-		map[i] = mapping[i + 1];
-		i++;
 	}
-	map[i] = '\0';
+	return (found);
 }
 
-char	**copy_map_for_path_search(char **mapping)
-{
-	int		x;
-	int		y;
-	int		j;
-	char	**map;
-
-	x = mapping_x(mapping) - 2;
-	y = mapping_y(mapping) - 2;
-	j = 0;
-	map = malloc_mapping(y);
-	if (!map)
-		return(NULL);
-	while (j < y)
-	{
-		map[j] = (char *)malloc(sizeof(char) * (x + 1));
-		if (!map)
-			return(NULL);
-		filling_copymap(map[j], mapping[j + 1], x);
-		j++;
-	}
-	print_map(map);
-	return (map);
-}
-
-int	striking_every_valid_tiles(char **map)
+static int	striking_every_valid_tiles(char **map)
 {
 	static t_items	items;
 	int				y;
 	int				x;
 
-	// FINDING PERSONA POSITION
 	y = 0;
 	x = 0;
 	while (map[y])
@@ -103,49 +86,27 @@ int	striking_every_valid_tiles(char **map)
 		x = 0;
 		y++;
 	}
-	printf("P = map[%d][%d]\n", y, x);
-	// DOING LOOP
+	items.collect = recursive_tile_flooding(map, x, y);
+	if (!finding_little_e(map))
+		items.collect = -1;
 	return (items.collect);
 }
 
 int	check_path_to_win_game(char	**mapping, int collectibles)
 {
-	//check character position
-	//check character position avance !1, if C = i+, if E = e+, or != P_precedent
-	//faire (y, x + 1) puis (y - 1, x) puis (y, x - 1) puis (y + 1, x)
-	//Stocker tout les P_precedent pour un check s'il sont bien complets pour la zone
-	//Ou changer une valeur (P_passe) pour chaques pixels.
-	//If !(i == collectibles) || !(e+) then return 0
-
-	char **map_searched;
+	char	**map;
 	int		total_collect;
 
-	total_collect = 0;	
-	printf("Collect total = %d\n", collectibles);
-	map_searched = copy_map_for_path_search(mapping);
-	total_collect = striking_every_valid_tiles(map_searched);
-	free_mapping_variable(map_searched);
+	map = copy_map_for_path_search(mapping);
+	if (!map)
+		return (0);
+	total_collect = striking_every_valid_tiles(map);
+	free_mapping_variable(map);
 	if (collectibles == total_collect)
 		return (1);
 	else
-		return (0);
-}
-
-int	main(int ac, char **av)
-{
-	int	parsing_res;
-	int	x;
-	int	y;
-
-	parsing_res = 0;
-	if (ac != 2)
 	{
-		ft_putstr("Put one file please\n");
+		ft_putstr("There's no path that wins\n");
 		return (0);
 	}
-	parsing_res = parsing(av[1], &x, &y);
-	if (parsing_res)
-		printf("PARSING IS GOOD\n");
-	inspecting_map(parsing_res, av[1], x, y);
-	return (0);
 }

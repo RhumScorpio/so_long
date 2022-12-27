@@ -6,7 +6,7 @@
 #    By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 07:38:28 by clesaffr          #+#    #+#              #
-#    Updated: 2022/12/23 10:33:18 by clesaffr         ###   ########.fr        #
+#    Updated: 2022/12/27 03:58:05 by clesaffr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,10 @@ SRCS		=	core_parsing.c\
 				checking_line.c\
 				checking_items.c\
 				mapping_parsing.c\
-				finding_a_valid_path.c
-
+				copy_map_for_path_search.c\
+				finding_a_valid_path.c\
+				graphic.c
+				
 INCLUDES	=	-I ./includes -I ./minilibx-linux
 
 LIBFT		=	libft.a
