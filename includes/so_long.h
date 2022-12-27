@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/27 13:25:32 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/27 15:51:04 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ typedef struct s_data
     t_scrn	*spt_exit;
     t_scrn	*spt_mario;
 	char	**map;
-	int		width;
-	int		height;
-	int		width_img;
-	int		height_img;
+	int		y;
+	int		x;
+	int		screen_y;
+	int		screen_x;
 	char	*addrImg;
-	int		*bpp;
-	int		*size;
-	int		*endian;
+	int		bpp;
+	int		size;
+	int		endian;
 }				t_data;
 
 // core_parsing.c
