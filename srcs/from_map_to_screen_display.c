@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 14:18:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:56:22 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:10:39 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -39,19 +39,19 @@ void	put_image_from_char(t_data *data, int x, int y)
 
 	c = data->map[y][x];
 	if (c == 'P')
-		mlx_put_image_to_window(data->mlx, data->mlxWin,
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->spt_mario, x * 64, y * 64);
 	else if (c == 'C')
-		mlx_put_image_to_window(data->mlx, data->mlxWin,
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->spt_collect, x * 64, y * 64);
 	else if (c == 'E')
-		mlx_put_image_to_window(data->mlx, data->mlxWin,
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->spt_exit, x * 64, y * 64);
 	else if (c == '0')
-		mlx_put_image_to_window(data->mlx, data->mlxWin,
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->spt_ground, x * 64, y * 64);
 	else if (c == '1')
-		mlx_put_image_to_window(data->mlx, data->mlxWin,
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->spt_wall, x * 64, y * 64);
 }
 

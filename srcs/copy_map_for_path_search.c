@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 00:02:21 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:48:28 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:18:27 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@ int	mapping_y(char **mapping)
 	while (mapping[y])
 		y++;
 	return (y);
-}
-
-void	print_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
 }
 
 static void	filling_copymap(char *map, char *mapping, int x)

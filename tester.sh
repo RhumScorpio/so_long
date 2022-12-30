@@ -1,4 +1,6 @@
 #!/bin/bash
+norminette libft/* includes/* srcs/*
+make
 echo "=============================================== file4.berr"
 ./so_long maps/file4.berr
 echo "=============================================== files3.ber"

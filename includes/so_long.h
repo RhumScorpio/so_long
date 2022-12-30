@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:39:38 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:23:14 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define DOWN 115
 # define RIGHT 100
 
-typedef struct	s_items
+typedef struct s_items
 {
 	int	collect;
 	int	persona;
@@ -36,23 +36,23 @@ typedef struct	s_items
 typedef struct s_data
 {
 	void	*mlx;
-	void	*mlxWin;
+	void	*mlx_win;
 
 	int		spt_x[5];
 	int		spt_y[5];
 
 	void	*spt_wall;
-    void 	*spt_ground;
-    void	*spt_collect;
-    void	*spt_exit;
-    void	*spt_mario;
-	
+	void	*spt_ground;
+	void	*spt_collect;
+	void	*spt_exit;
+	void	*spt_mario;
+
 	char	**map;
 	int		total;
 	int		collect;
 	int		move;
 	int		game_finished;
-	
+
 	int		y;
 	int		x;
 	int		mario_y;
@@ -64,7 +64,7 @@ typedef struct s_data
 }				t_data;
 
 // core_parsing.c
-int 	try_opening(char *file_name);
+int		try_opening(char *file_name);
 int		check_file_extension(char *file_name);
 int		check_file_lines(char *file_name, int *x, int *y);
 int		parsing(char *file_name, int *x, int *y);
@@ -80,12 +80,13 @@ int		the_line_is_in(char *line, t_items *items);
 int		checkif_line_valid(int i, char **line, t_items *items);
 
 // checking_items.c
-void	print_items(t_items *items);
 int		if_items_valid(t_items *items);
 int		items_are_valid(t_items *items);
+int		finding_little_e(char **map);
+void	setting_char_position(char c, char **map, int *x, int *y);
 
 // mapping_parsing.c
-int		inspecting_map(int	init, char *file_name, int x, int y);
+int		inspecting_map(int init, char *file_name, int x, int y);
 void	free_mapping_variable(char **mapping);
 void	close_mapping_variable(char **mapping);
 char	**allocating_full_map(char *file_name, int x, int y);
@@ -94,12 +95,10 @@ char	**malloc_mapping(int y);
 // copy_map_for_path_search.c
 int		mapping_x(char **mapping);
 int		mapping_y(char **mapping);
-void	print_map(char **map);
 char	**copy_map_for_path_search(char **mapping);
 
 // finding_a_valid_path.c
 int		check_path_to_win_game(char	**mapping, int collectibles);
-void	setting_char_position(char c, char **map, int *x, int *y);
 
 // from_map_to_screen_display.c
 int		open_xpm_sprites(t_data	*data);

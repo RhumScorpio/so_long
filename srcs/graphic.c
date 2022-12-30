@@ -6,13 +6,11 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 07:58:12 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:59:53 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:25:40 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-#include <stdint.h>
-#include <stdio.h>
 
 void	put_end_sentence(int final_moves)
 {
@@ -27,7 +25,7 @@ int	close_window(t_data *data)
 		put_end_sentence(data->move);
 	free_mapping_variable(data->map);
 	destroy_sprites(data);
-	mlx_destroy_window(data->mlx, data->mlxWin);
+	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	exit(EXIT_SUCCESS);
@@ -63,14 +61,14 @@ int	main(int ac, char **av)
 	setting_char_position('E', data.map, &data.exit_x, &data.exit_y);
 	data.screen_y = 64 * data.y;
 	data.screen_x = 64 * data.x;
-	data.mlxWin = mlx_new_window(data.mlx, data.screen_x,
+	data.mlx_win = mlx_new_window(data.mlx, data.screen_x,
 			data.screen_y, "clesaffr's so_long");
 	if (open_xpm_sprites(&data))
 		displaying_map(&data);
 	else
 		return (close_window(&data));
-	mlx_key_hook(data.mlxWin, direction, &data);
-	mlx_hook(data.mlxWin, 17, 0, close_window, &data);
+	mlx_key_hook(data.mlx_win, direction, &data);
+	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }

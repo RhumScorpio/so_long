@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:28:48 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:59:20 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:20:28 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -37,52 +37,6 @@ static int	recursive_tile_flooding(char **map, int x, int y)
 			recursive_tile_flooding(map, x, y + 1);
 	}
 	return (total);
-}
-
-static int	finding_little_e(char **map)
-{
-	int	y;
-	int	x;
-	int	found;
-
-	y = 0;
-	x = 0;
-	found = 0;
-	while (map[y])
-	{
-		while (map[y][x])
-		{
-			if (map[y][x] == 'e')
-				found = 1;
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (found);
-}
-
-void	setting_char_position(char c, char **map, int *x, int *y)
-{
-	int	persona;
-
-	persona = 0;
-	while (map[*y])
-	{
-		while (map[*y][*x])
-		{
-			if (map[*y][*x] == c)
-			{
-				persona = 1;
-				break ;
-			}
-			*x += 1;
-		}
-		if (persona)
-			break ;
-		*x = 0;
-		*y += 1;
-	}
 }
 
 static int	striking_every_valid_tiles(char **map)

@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:11:45 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/30 00:48:01 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:00:28 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -30,7 +30,7 @@ int	change_map(t_data *data, int movy, int movx)
 int	move_persona(t_data *data, int d)
 {
 	ft_putnbr_fd(++data->move, 1);
-	ft_putstr(" total steps\n");
+	ft_putstr("\n");
 	if (data->mario_y == data->exit_y && data->mario_x == data->exit_x)
 		data->map[data->mario_y][data->mario_x] = 'E';
 	else
