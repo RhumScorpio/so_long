@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 00:02:21 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/27 00:08:27 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:48:28 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	mapping_x(char **mapping)
 	x = 0;
 	while (mapping[0][x])
 		x++;
-	return(x);
+	return (x);
 }
 
 int	mapping_y(char **mapping)
@@ -29,7 +29,7 @@ int	mapping_y(char **mapping)
 	y = 0;
 	while (mapping[y])
 		y++;
-	return(y);
+	return (y);
 }
 
 void	print_map(char **map)
@@ -66,14 +66,14 @@ char	**copy_map_for_path_search(char **mapping)
 	j = 0;
 	map = malloc_mapping(y);
 	if (!map)
-		return(NULL);
+		return (NULL);
 	while (j < y)
 	{
 		map[j] = (char *)malloc(sizeof(char) * (x + 1));
 		if (!map)
 		{
 			free_mapping_variable(map);
-			return(NULL);
+			return (NULL);
 		}
 		filling_copymap(map[j], mapping[j + 1], x);
 		j++;

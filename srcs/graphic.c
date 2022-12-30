@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 07:58:12 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/28 21:16:53 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:59:53 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,19 @@
 #include <stdint.h>
 #include <stdio.h>
 
+void	put_end_sentence(int final_moves)
+{
+	ft_putstr("Game finished in ");
+	ft_putnbr_fd(final_moves, 1);
+	ft_putstr(" steps. Congratulations!\n");
+}
+
 int	close_window(t_data *data)
 {
+	if (data->game_finished)
+		put_end_sentence(data->move);
 	free_mapping_variable(data->map);
-	mlx_destroy_image(data->mlx, data->mlxImg);
+	destroy_sprites(data);
 	mlx_destroy_window(data->mlx, data->mlxWin);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
@@ -25,129 +34,15 @@ int	close_window(t_data *data)
 	return (0);
 }
 
-int	direction(int key, t_data *data)
+int	main_parsing(int ac, char **av, t_data *data)
 {
-	printf("%d\n", key);
-	if (key == 65307)
-		close_window(data);
-	return (0);
-}
-//direction must be changing data to the right direction. IN LOOP FUNCT frame creation.
-// MALLOC FOR --> sprites
-// MALLOC FOR --> global error YOU CAN MAKE A FUNCTION WITH STATIC DECLARATION AND CALL IT TO RETURN A VALUE AROUND THE CODE
-//
-//image creation must be from the imgAddr get from XPMimg *Mur *Sol *Perso *Sol+Collectible *Sol+Sortie  
-//frame must be secondary to the creation of image
-//IMPORTANT ---> char modification must be in stack, cp img addr from sprite into buffers that can be used to copy char into the RIGHT CONFIGURATION
-/*
-int	frame(t_data *data)
-{
-    void    *sprite_img;
-    int               x;
-    int	              y;
-
-    x = data->sprite->height;
-    y = data->sprite->height;
-    printf("x/%d, y/%d", x, y);
-    sprite_img = data->sprite->img;
-    //data->mlxImg = mlx_new_image(data->mlxWin, 64, 64);
-    //data->addrImg = mlx_get_data_addr(data->mlxWin, data->bpp, data->size, data->endian);
-    mlx_put_image_to_window(data->mlx, data->mlxWin, sprite_img, 0, 0);
-    while (x < 120 && y < 120)
-    {
-        //mlx_pixel_put(data->mlx, data->mlxWin, x, y, 1);
-        x++;intra
-        y++;
-    }
-    //mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 0);
-    return (1);
-}*/
-
-int	get_xpm_files(void	*mlx, t_scrn *spt, char *file)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	printf("file = %s \n", file);
-	spt->img = mlx_xpm_file_to_image(mlx, file, &x, &y);
-	spt->width = x;
-	spt->height = y;
-	printf("x = %d, y = %d\n", x, y);
-	if (!spt->img)
-		return (0);
-	else
-		return (1);
-}
-
-int	opening_graphic_ressources_xpm(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	printf("OPEN");
-	i += get_xpm_files(data->mlx, data->spt_wall, "./sprites/so_long_wall.xpm");
-	i += get_xpm_files(data->mlx, data->spt_ground, "./sprites/so_long_ground.xpm");
-	i += get_xpm_files(data->mlx, data->spt_collect, "./sprites/so_long_collect.xpm");
-	i += get_xpm_files(data->mlx, data->spt_exit, "./sprites/so_long_exit.xpm");
-	i += get_xpm_files(data->mlx, data->spt_mario, "./sprites/so_long_mario.xpm");
-	if (i == 5)
-		return (1);
-	else
-		return (0);
-
-}
-
-//LOAD TEXTURE
-	//sprite.img = mlx_xpm_file_to_image(data.mlx, "mario_1_.xpm", &(sprite.width), &(sprite.height));
-/*void	mypixel_pute(t_data *data, int x, int y, int color)
-{
-	char	*dest;
-
-	if (y >= data->screen_y || x >= data->screen_x || (x || y) < 0)
-		return (0);
-	dest = data->pxl + data->line * y + (data->bpp / 8) * x;
-	*(unsigned int *)dest = color;
-	return (0);
-}
-
-int	print_texture(t_data *data, int starter_X, int starter_Y)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < data->screen_y)
-	{
-		while (x < data->screen_x)
-		{
-			data->color = *(unsigned int *)(data->pxl + data->size * y + x * (data->bpp / 8));
-			if (data->color != 0)
-			{
-				mypixel_pute(data, starter_X * 64 + x, starter_Y * 64 + y, data->color);
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (0);
-}*/
-
-int	main_parsing(int ac, char **av, int *x, int *y)
-{
-	int	parsing_res;
-	
-	parsing_res = 0;
 	if (ac != 2)
 	{
 		ft_putstr("Put one file please\n");
 		return (0);
 	}
-	parsing_res = parsing(av[1], x, y);
-	if (inspecting_map(parsing_res, av[1], *x, *y))
+	data->total = parsing(av[1], &data->x, &data->y);
+	if (inspecting_map(data->total, av[1], data->x, data->y))
 		return (1);
 	else
 		return (0);
@@ -155,91 +50,25 @@ int	main_parsing(int ac, char **av, int *x, int *y)
 
 int	main(int ac, char **av)
 {
-	int		resolution;
 	static t_data	data;
-	static t_scrn	spt;
-	static t_scrn	wall;
-	static t_scrn	pers;
 
-	if (main_parsing(ac, av, &data.x, &data.y))
-	{
-		printf("INITIALIZED\n");
+	if (main_parsing(ac, av, &data))
 		data.mlx = mlx_init();
-		if (!data.mlx)
-			return (0);
-	}
 	else
 		return (0);
-	// OPEN ALL RESSOURCES
-	printf("x = %d | y = %d\n", data.x, data.y);
-//	if (!opening_graphic_ressources_xpm(&data))
-//		return (0);
 	data.map = allocating_full_map(av[1], data.x, data.y);
-	resolution = 64;
-	data.screen_x = resolution * data.x;
-	data.screen_y = resolution * data.y;
-	
-
-	data.mlxWin = mlx_new_window(data.mlx, data.screen_x, data.screen_y, "Hello world!");
-	data.mlxImg = mlx_new_image(data.mlx, data.screen_x, data.screen_y);
-/*
-	int *img_address;
-	int	*address_sprite;
-	int		bpp;
-	int		size;
-	int		endian;*/
-
-	spt.img = mlx_xpm_file_to_image(data.mlx, "./sprites/so_long_wall.xpm", &(spt.width), &(spt.height));
-	wall.img = mlx_xpm_file_to_image(data.mlx, "./sprites/so_long_ground.xpm", &(wall.width), &(wall.height));
-	pers.img = mlx_xpm_file_to_image(data.mlx, "./sprites/mario.xpm", &(pers.width), &(pers.height));
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < data.y)
-	{
-		while (x < data.x)
-		{
-			mlx_put_image_to_window(data.mlx, data.mlxWin, spt.img, x * resolution, y * resolution);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	x = 0;
-	y = 0;
-	while (y < data.y)
-	{
-		while (x < data.x)
-		{
-			if (data.map[y][x] == 'P')
-				mlx_put_image_to_window(data.mlx, data.mlxWin, pers.img, x * resolution, y * resolution);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	x = 0;
-	y = 0;
-	while (y < data.y)
-	{
-		while (x < data.x)
-		{
-			if (data.map[y][x] == '0')
-				mlx_put_image_to_window(data.mlx, data.mlxWin, wall.img, x * resolution, y * resolution);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	mlx_destroy_image(data.mlx, spt.img);
-	mlx_destroy_image(data.mlx, wall.img);
-	mlx_destroy_image(data.mlx, pers.img);
-	
-	
-	//get the XPM into a *char arrangement, pass the *char arrangement into double array
-    //mlx_put_image_to_window(data->mlx, data->mlxWin, data->mlxImg, 0, 0);
+	if (!data.mlx || !data.map)
+		return (0);
+	setting_char_position('P', data.map, &data.mario_x, &data.mario_y);
+	setting_char_position('E', data.map, &data.exit_x, &data.exit_y);
+	data.screen_y = 64 * data.y;
+	data.screen_x = 64 * data.x;
+	data.mlxWin = mlx_new_window(data.mlx, data.screen_x,
+			data.screen_y, "clesaffr's so_long");
+	if (open_xpm_sprites(&data))
+		displaying_map(&data);
+	else
+		return (close_window(&data));
 	mlx_key_hook(data.mlxWin, direction, &data);
 	mlx_hook(data.mlxWin, 17, 0, close_window, &data);
 	mlx_loop(data.mlx);

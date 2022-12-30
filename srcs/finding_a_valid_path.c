@@ -6,15 +6,15 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:28:48 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/27 01:08:14 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:59:20 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
 
-static int recursive_tile_flooding(char **map, int	x, int	y)
+static int	recursive_tile_flooding(char **map, int x, int y)
 {
-	int	born_y;
-	int	born_x;
+	int			born_y;
+	int			born_x;
 	static int	total;
 
 	born_y = mapping_y(map);
@@ -23,7 +23,7 @@ static int recursive_tile_flooding(char **map, int	x, int	y)
 	{
 		if (map[y][x] == 'C')
 			total++;
-		if(map[y][x] == 'E' || map[y][x] == 'e')
+		if (map[y][x] == 'E' || map[y][x] == 'e')
 			map[y][x] = 'e';
 		else
 			map[y][x] = '1';
@@ -41,16 +41,16 @@ static int recursive_tile_flooding(char **map, int	x, int	y)
 
 static int	finding_little_e(char **map)
 {
-	int				y;
-	int				x;
-	int			found;
+	int	y;
+	int	x;
+	int	found;
 
 	y = 0;
 	x = 0;
 	found = 0;
 	while (map[y])
 	{
-		while(map[y][x])
+		while (map[y][x])
 		{
 			if (map[y][x] == 'e')
 				found = 1;
@@ -62,34 +62,42 @@ static int	finding_little_e(char **map)
 	return (found);
 }
 
+void	setting_char_position(char c, char **map, int *x, int *y)
+{
+	int	persona;
+
+	persona = 0;
+	while (map[*y])
+	{
+		while (map[*y][*x])
+		{
+			if (map[*y][*x] == c)
+			{
+				persona = 1;
+				break ;
+			}
+			*x += 1;
+		}
+		if (persona)
+			break ;
+		*x = 0;
+		*y += 1;
+	}
+}
+
 static int	striking_every_valid_tiles(char **map)
 {
-	static t_items	items;
-	int				y;
-	int				x;
+	int	collectibles;
+	int	y;
+	int	x;
 
 	y = 0;
 	x = 0;
-	while (map[y])
-	{
-		while(map[y][x])
-		{
-			if (map[y][x] == 'P')
-			{
-				items.persona = 1;
-				break ;
-			}
-			x++;
-		}
-		if (items.persona)
-			break ;
-		x = 0;
-		y++;
-	}
-	items.collect = recursive_tile_flooding(map, x, y);
+	setting_char_position('P', map, &x, &y);
+	collectibles = recursive_tile_flooding(map, x, y);
 	if (!finding_little_e(map))
-		items.collect = -1;
-	return (items.collect);
+		collectibles = -1;
+	return (collectibles);
 }
 
 int	check_path_to_win_game(char	**mapping, int collectibles)

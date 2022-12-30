@@ -6,7 +6,7 @@
 #    By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 07:38:28 by clesaffr          #+#    #+#              #
-#    Updated: 2022/12/27 03:58:05 by clesaffr         ###   ########.fr        #
+#    Updated: 2022/12/29 18:15:04 by clesaffr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS		=	core_parsing.c\
 				mapping_parsing.c\
 				copy_map_for_path_search.c\
 				finding_a_valid_path.c\
+				from_map_to_screen_display.c\
+				controls.c\
 				graphic.c
 				
 INCLUDES	=	-I ./includes -I ./minilibx-linux

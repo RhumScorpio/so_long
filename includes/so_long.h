@@ -6,19 +6,25 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:09:01 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/28 19:05:55 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:39:38 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../minilibx-linux/mlx_int.h"
-#include "../minilibx-linux/mlx.h"
-#include "../libft/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "../minilibx-linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+
+# define ESC 65307
+# define UP 119
+# define LEFT 97
+# define DOWN 115
+# define RIGHT 100
 
 typedef struct	s_items
 {
@@ -27,40 +33,34 @@ typedef struct	s_items
 	int	exit;
 }				t_items;
 
-typedef struct s_scrn
-{
-	void	*img;
-	int		width;
-	int		height;
-}				t_scrn;
-
 typedef struct s_data
 {
 	void	*mlx;
 	void	*mlxWin;
-	void	*mlxImg;
 
-	t_scrn	*spt_wall;
-    t_scrn 	*spt_ground;
-    t_scrn	*spt_collect;
-    t_scrn	*spt_exit;
-    t_scrn	*spt_mario;
+	int		spt_x[5];
+	int		spt_y[5];
+
+	void	*spt_wall;
+    void 	*spt_ground;
+    void	*spt_collect;
+    void	*spt_exit;
+    void	*spt_mario;
 	
 	char	**map;
+	int		total;
+	int		collect;
+	int		move;
+	int		game_finished;
 	
 	int		y;
 	int		x;
+	int		mario_y;
+	int		mario_x;
+	int		exit_y;
+	int		exit_x;
 	int		screen_y;
 	int		screen_x;
-	
-	char	*addrImg;
-
-	int		bpp;
-	int		size;
-	int		endian;
-	char	*pxl;
-
-	int		color;
 }				t_data;
 
 // core_parsing.c
@@ -98,6 +98,18 @@ void	print_map(char **map);
 char	**copy_map_for_path_search(char **mapping);
 
 // finding_a_valid_path.c
-int	check_path_to_win_game(char	**mapping, int collectibles);
+int		check_path_to_win_game(char	**mapping, int collectibles);
+void	setting_char_position(char c, char **map, int *x, int *y);
+
+// from_map_to_screen_display.c
+int		open_xpm_sprites(t_data	*data);
+void	displaying_map(t_data *data);
+int		destroy_sprites(t_data *data);
+
+// controls.c
+int		direction(int key, t_data *data);
+
+// graphic.c
+int		close_window(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:12:43 by clesaffr          #+#    #+#             */
-/*   Updated: 2022/12/27 15:31:30 by clesaffr         ###   ########.fr       */
+/*   Updated: 2022/12/30 01:03:55 by clesaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/so_long.h"
@@ -38,26 +38,26 @@ void	close_mapping_variable(char	**mapping)
 	free(*mapping);
 	*mapping = '\0';
 }
+
 char	**allocating_full_map(char *file_name, int x, int y)
 {
-	int		gnl;
-	int		i;
 	char	**mapping;
+	int		i;
 	int		fd;
-	
+
 	i = 0;
 	fd = open(file_name, O_RDONLY);
 	mapping = malloc_mapping(y);
 	if (!mapping)
 		return (NULL);
-	while ((gnl = get_next_line(fd, &mapping[i])) && i < x )
+	while (get_next_line(fd, &mapping[i]) && i < x)
 		i++;
 	close_mapping_variable(&mapping[i]);
 	close(fd);
 	return (mapping);
 }
 
-int	inspecting_map(int	init, char *file_name, int x, int y)
+int	inspecting_map(int init, char *file_name, int x, int y)
 {
 	int		error;
 	char	**mapping;
